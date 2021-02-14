@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import Categories from '../../components/Categories';
 import SearchBar from '../../components/SearchBar';
 import SearchResults from '../../components/SearchResults';
+import CartButton from '../../components/CartButton';
 
 class Home extends Component {
   render() {
@@ -18,7 +18,7 @@ class Home extends Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
+        <CartButton />
         <Categories handleSearchCategory={ handleSearchCategory } />
         <SearchResults results={ results } />
       </div>

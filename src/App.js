@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Cart from './pages/Cart';
+import ProductDetails from './pages/ProductDetails';
 
 import { getProductsFromCategoryAndQuery } from './services/api';
 
@@ -54,11 +55,26 @@ class App extends Component {
     );
   }
 
+  renderProductDetails() {
+    const { results } = this.state;
+    return (
+      <Route
+        path="/products/:id"
+        render={ (props) => (
+          <ProductDetails
+            { ...props }
+            results={ results }
+          />) }
+      />
+    );
+  }
+
   render() {
     return (
       <Router>
         <Switch>
           <Route path="/cart" component={ Cart } />
+          { this.renderProductDetails() }
           { this.renderHome() }
         </Switch>
       </Router>
