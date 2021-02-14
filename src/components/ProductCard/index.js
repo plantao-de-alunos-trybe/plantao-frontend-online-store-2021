@@ -8,7 +8,7 @@ class ProductCard extends Component {
     const { product: { title, thumbnail, price } } = this.props;
     return (
       <div className={ styles.productCard } data-testid="product">
-        <img src={ thumbnail } alt={ title } />
+        <img className={ styles.productCardImage } src={ thumbnail } alt={ title } />
         <p>{ title }</p>
         <p>
           R$
