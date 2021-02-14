@@ -7,17 +7,21 @@ import ProductDetails from './pages/ProductDetails';
 
 import { getProductsFromCategoryAndQuery } from './services/api';
 
+import './App.css';
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
       queryInput: '',
       results: [],
+      cart: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchCategory = this.handleSearchCategory.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
 
   handleChange({ target }) {
@@ -37,6 +41,31 @@ class App extends Component {
       this.setState({ results })));
   }
 
+  handleAddToCart(id) {
+    const { results } = this.state;
+    const productToAdd = results.find((product) => product.id === id);
+    this.setState(({ cart }) => ({
+      cart: {
+        ...cart,
+        [id]: productToAdd,
+      },
+    }));
+  }
+
+  renderCart() {
+    const { cart } = this.state;
+    return (
+      <Route
+        path="/cart"
+        render={ (props) => (
+          <Cart
+            { ...props }
+            cart={ cart }
+          />) }
+      />
+    );
+  }
+
   renderHome() {
     const { results } = this.state;
     return (
@@ -49,6 +78,7 @@ class App extends Component {
             handleChange={ this.handleChange }
             handleSearch={ this.handleSearch }
             handleSearchCategory={ this.handleSearchCategory }
+            handleAddToCart={ this.handleAddToCart }
           />
         ) }
       />
@@ -64,6 +94,7 @@ class App extends Component {
           <ProductDetails
             { ...props }
             results={ results }
+            handleAddToCart={ this.handleAddToCart }
           />) }
       />
     );
@@ -73,7 +104,7 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/cart" component={ Cart } />
+          { this.renderCart() }
           { this.renderProductDetails() }
           { this.renderHome() }
         </Switch>

@@ -8,7 +8,8 @@ import CartButton from '../../components/CartButton';
 
 class Home extends Component {
   render() {
-    const { handleChange, handleSearch, handleSearchCategory, results } = this.props;
+    const { handleChange, handleSearch, handleSearchCategory,
+      handleAddToCart, results } = this.props;
     return (
       <div>
         <SearchBar
@@ -20,7 +21,7 @@ class Home extends Component {
         </p>
         <CartButton />
         <Categories handleSearchCategory={ handleSearchCategory } />
-        <SearchResults results={ results } />
+        <SearchResults handleAddToCart={ handleAddToCart } results={ results } />
       </div>
     );
   }
@@ -30,6 +31,7 @@ Home.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   handleSearchCategory: PropTypes.func.isRequired,
+  handleAddToCart: PropTypes.func.isRequired,
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

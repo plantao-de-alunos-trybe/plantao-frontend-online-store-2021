@@ -6,11 +6,15 @@ import CartButton from '../../components/CartButton';
 
 class ProductDetails extends Component {
   render() {
-    const { match: { params: { id } }, results } = this.props;
+    const { match: { params: { id } }, results, handleAddToCart } = this.props;
     const selectedProduct = results.find((product) => product.id === id);
     return (
       <div>
-        <ProductCard product={ selectedProduct } showDetailsLink={ false } />
+        <ProductCard
+          product={ selectedProduct }
+          showDetailsLink={ false }
+          handleAddToCart={ handleAddToCart }
+        />
         <CartButton />
       </div>
     );
@@ -24,6 +28,7 @@ ProductDetails.propTypes = {
     }),
   }).isRequired,
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleAddToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

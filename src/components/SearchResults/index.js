@@ -7,11 +7,15 @@ import styles from './styles.module.css';
 
 class SearchResults extends Component {
   render() {
-    const { results } = this.props;
+    const { handleAddToCart, results } = this.props;
     return (
       <div className={ styles.searchResults }>
         { results.map((product) => (
-          <ProductCard key={ product.id } product={ product } />)) }
+          <ProductCard
+            key={ product.id }
+            product={ product }
+            handleAddToCart={ handleAddToCart }
+          />)) }
       </div>
     );
   }
@@ -19,6 +23,7 @@ class SearchResults extends Component {
 
 SearchResults.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleAddToCart: PropTypes.func.isRequired,
 };
 
 export default SearchResults;
