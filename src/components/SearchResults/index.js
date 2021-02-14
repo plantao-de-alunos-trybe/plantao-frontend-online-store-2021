@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ProductCard from '../ProductCard';
+import AddToCartButton from '../AddToCartButton';
 
 import styles from './styles.module.css';
 
@@ -15,7 +16,14 @@ class SearchResults extends Component {
             key={ product.id }
             product={ product }
             handleAddToCart={ handleAddToCart }
-          />)) }
+          >
+            <AddToCartButton
+              data-testid="product-add-to-cart"
+              handleAddToCart={ handleAddToCart }
+              id={ product.id }
+            />
+          </ProductCard>
+        )) }
       </div>
     );
   }

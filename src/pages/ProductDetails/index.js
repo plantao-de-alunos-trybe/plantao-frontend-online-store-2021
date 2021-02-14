@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ProductCard from '../../components/ProductCard';
 import CartButton from '../../components/CartButton';
+import AddToCartButton from '../../components/AddToCartButton';
 
 class ProductDetails extends Component {
   render() {
@@ -14,7 +15,13 @@ class ProductDetails extends Component {
           product={ selectedProduct }
           showDetailsLink={ false }
           handleAddToCart={ handleAddToCart }
-        />
+        >
+          <AddToCartButton
+            data-testid="product-detail-add-to-cart"
+            handleAddToCart={ handleAddToCart }
+            id={ id }
+          />
+        </ProductCard>
         <CartButton />
       </div>
     );

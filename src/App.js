@@ -61,6 +61,7 @@ class App extends Component {
           <Cart
             { ...props }
             cart={ cart }
+            handleAddToCart={ this.handleAddToCart }
           />) }
       />
     );

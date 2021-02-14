@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 class ProductCard extends Component {
   render() {
     const { product: { title, thumbnail, price, id },
-      showDetailsLink, handleAddToCart } = this.props;
+      showDetailsLink, children } = this.props;
 
     const detailsLink = (
       <Link
@@ -27,13 +27,7 @@ class ProductCard extends Component {
           { price }
         </p>
         { showDetailsLink && detailsLink }
-        <button
-          type="button"
-          onClick={ () => handleAddToCart(id) }
-          data-testid="product-add-to-cart"
-        >
-          Adicionar ao carrinho
-        </button>
+        { children }
       </div>
     );
   }
@@ -51,7 +45,7 @@ ProductCard.propTypes = {
     id: PropTypes.string,
   }).isRequired,
   showDetailsLink: PropTypes.bool,
-  handleAddToCart: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default ProductCard;
