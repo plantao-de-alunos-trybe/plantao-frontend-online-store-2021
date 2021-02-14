@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { getCategories } from '../../services/api';
 
@@ -16,18 +17,25 @@ class Categories extends Component {
 
   render() {
     const { categories } = this.state;
+    const { handleSearchCategory } = this.props;
+
     return (
-      <ul>
-        { categories.map(({ name, id }) => (
-          <li
-            key={ id }
-            data-testid="category"
-          >
-            { name }
-          </li>)) }
-      </ul>
+      categories.map(({ name, id }) => (
+        <input
+          type="button"
+          key={ id }
+          data-productid={ id }
+          data-testid="category"
+          value={ name }
+          onClick={ handleSearchCategory }
+        />
+      ))
     );
   }
 }
+
+Categories.propTypes = {
+  handleSearchCategory: PropTypes.func.isRequired,
+};
 
 export default Categories;

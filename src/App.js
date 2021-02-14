@@ -16,6 +16,7 @@ class App extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchCategory = this.handleSearchCategory.bind(this);
   }
 
   handleChange({ target }) {
@@ -26,6 +27,12 @@ class App extends Component {
   handleSearch() {
     const { queryInput } = this.state;
     getProductsFromCategoryAndQuery('', queryInput).then(({ results }) => (
+      this.setState({ results })));
+  }
+
+  handleSearchCategory({ target: { dataset: { productid } } }) {
+    const { queryInput } = this.state;
+    getProductsFromCategoryAndQuery(productid, queryInput).then(({ results }) => (
       this.setState({ results })));
   }
 
@@ -40,6 +47,7 @@ class App extends Component {
             results={ results }
             handleChange={ this.handleChange }
             handleSearch={ this.handleSearch }
+            handleSearchCategory={ this.handleSearchCategory }
           />
         ) }
       />
