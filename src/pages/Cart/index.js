@@ -11,10 +11,18 @@ class Cart extends Component {
   }
 
   renderCart() {
-    const { cart } = this.props;
+    const { cart, increaseQuantity, decreaseQuantity } = this.props;
     return (
-      Object.values(cart).map((product) => (
-        <CartProductCard key={ product.id } product={ product } />))
+      Object.values(cart)
+        // .sort(({ product: { id: idA } }, { product: { id: idB } }) => (
+        //   idA.localeCompare(idB)))
+        .map(({ product, quantity }) => (
+          <CartProductCard
+            key={ product.id }
+            product={ product }
+            quantity={ quantity }
+            { ...{ increaseQuantity, decreaseQuantity } }
+          />))
     );
   }
 
@@ -28,6 +36,8 @@ class Cart extends Component {
 
 Cart.propTypes = {
   cart: PropTypes.objectOf(PropTypes.object).isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
 };
 
 export default Cart;

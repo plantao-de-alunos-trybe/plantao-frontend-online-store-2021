@@ -22,6 +22,8 @@ class App extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchCategory = this.handleSearchCategory.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
+    this.increaseQuantity = this.increaseQuantity.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
   }
 
   handleChange({ target }) {
@@ -42,14 +44,51 @@ class App extends Component {
   }
 
   handleAddToCart(id) {
-    const { results } = this.state;
+    const { results, cart: currentCart } = this.state;
     const productToAdd = results.find((product) => product.id === id);
-    this.setState(({ cart }) => ({
-      cart: {
-        ...cart,
-        [id]: productToAdd,
-      },
-    }));
+
+    if (!currentCart[productToAdd.id]) {
+      this.setState(({ cart }) => ({
+        cart: {
+          ...cart,
+          [id]: {
+            quantity: 1,
+            product: productToAdd,
+          },
+        },
+      }));
+    } else {
+      this.increaseQuantity(id);
+    }
+  }
+
+  increaseQuantity(id) {
+    this.setState(({ cart }) => {
+      const { [id]: itemToUpdate, ...rest } = cart;
+      const { quantity, ...itemData } = itemToUpdate;
+      const newItem = { ...itemData, quantity: quantity + 1 };
+      return {
+        cart: {
+          ...rest,
+          [id]: newItem,
+        },
+      };
+    });
+  }
+
+  decreaseQuantity(id) {
+    this.setState(({ cart }) => {
+      const { [id]: itemToUpdate, ...rest } = cart;
+      const { quantity, ...itemData } = itemToUpdate;
+      const newQuantity = quantity - 1;
+      const newItem = { ...itemData, quantity: newQuantity >= 0 ? newQuantity : 0 };
+      return {
+        cart: {
+          ...rest,
+          [id]: newItem,
+        },
+      };
+    });
   }
 
   renderCart() {
@@ -62,6 +101,8 @@ class App extends Component {
             { ...props }
             cart={ cart }
             handleAddToCart={ this.handleAddToCart }
+            increaseQuantity={ this.increaseQuantity }
+            decreaseQuantity={ this.decreaseQuantity }
           />) }
       />
     );
