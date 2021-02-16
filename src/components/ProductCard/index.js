@@ -20,7 +20,7 @@ class ProductCard extends Component {
 
     return (
       <div className={ styles.productCard } data-testid="product">
-        <img className={ styles.productCardImage } src={ thumbnail } alt={ title } />
+        <img className={ styles.productCardImage } src={ thumbnail.replace('I', 'O') } alt={ title } />
         <p data-testid="product-detail-name">{ title }</p>
         <p>
           R$
